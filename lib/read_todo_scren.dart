@@ -17,9 +17,24 @@ class ReadTodoScreen extends StatelessWidget {
             return ListView.builder(
               itemCount: snapshot.data?.length,
               itemBuilder: (BuildContext context, int index) {
-                return ListTile(
-                  title: Text(snapshot.data![index].title!),
-                  subtitle: Text(snapshot.data![index].content!),
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ListTile(
+                    tileColor: Colors.blue.shade50,
+                    title: Text(snapshot.data![index].title!),
+                    subtitle: Text(snapshot.data![index].content!),
+                    trailing: InkWell(onTap: (){
+                      _deleteTodo(Todo(id: snapshot.data![index].id));
+                    },child: Icon(Icons.delete,color: Colors.red,)),
+                    onTap: () {
+                      _navigateToDetail(
+                        context,
+                        Todo(
+                            content: snapshot.data![index].content,
+                            title: snapshot.data![index].title),
+                      );
+                    },
+                  ),
                 );
               },
             );
@@ -32,6 +47,7 @@ class ReadTodoScreen extends StatelessWidget {
     );
   }
 }
+
 _deleteTodo(Todo todo) {
   DatabaseHelper.instance.deleteTodo(todo.id!);
 }

@@ -10,6 +10,7 @@ class HomeScreen extends StatelessWidget {
         title: Text('Create a todo'),
       ),
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Center(child: CreateTodoButton()),
           Center(child: ReadTodoButton())
